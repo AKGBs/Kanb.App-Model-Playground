@@ -22,7 +22,7 @@ public class Task {
 
     public Task(Task parentTask, ArrayList<Task> childrenTasks) {
         this.parentTask = parentTask;
-        this.childrenTasks = childrenTasks;
+        setChildrenTasks(childrenTasks);
     }
 
 

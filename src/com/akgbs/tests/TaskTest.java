@@ -15,7 +15,7 @@ import java.lang.IllegalArgumentException;
 class TaskTest {
 
     @Test
-    @DisplayName("When created check attributes getter and setter")
+    @DisplayName("When created, check attributes getter and setter")
     void test_attributes_getter_and_setter() {
         Task task = new Task();
         Task parentTask = new Task();
@@ -35,7 +35,7 @@ class TaskTest {
     }
 
     @Test
-    @DisplayName("When added a parent as child tasks throw an exception")
+    @DisplayName("When added a parent as child task, throw an exception")
     void test_parent_cant_be_child() {
         Task task = new Task();
         Task parentTask = new Task();
@@ -46,6 +46,11 @@ class TaskTest {
         assertThrows(IllegalArgumentException.class, () -> {
             task.setChildrenTasks(children);
         });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Task anotherTask = new Task(parentTask, children);
+        });
+
     }
 
 }
