@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,19 +48,19 @@ public class SampleGraphProcessTest {
         Task task = new Task(graphProcess);
         assertEquals(backlog, task.getCurrentNode());
 
-        task.next();
+        assertEquals(todo, task.next());
         assertEquals(todo, task.getCurrentNode());
 
-        task.next();
+        assertEquals(doing, task.next());
         assertEquals(doing, task.getCurrentNode());
 
-        task.next();
+        assertEquals(done, task.next());
         assertEquals(done, task.getCurrentNode());
 
-        task.next();
+        assertEquals(finished, task.next());
         assertEquals(finished, task.getCurrentNode());
 
-        assertThrows(Exception.class, task::next);
+        assertThrows(NoSuchElementException.class, () -> task.next());
     }
 
 }

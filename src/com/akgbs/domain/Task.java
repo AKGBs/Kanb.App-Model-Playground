@@ -75,7 +75,9 @@ public class Task {
         }
     }
 
-    public void next() {
-
+    public Node next() {
+        Node node = graphProcess.getNext(this.currentNode);
+        this.setCurrentNode(node);
+        return getCurrentNode();
     }
 }
