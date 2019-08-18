@@ -3,7 +3,7 @@ package com.akgbs.domain;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class Process {
+public class GraphProcess {
 
     public ArrayList<Arc> getArcList() {
         return arcList;
@@ -11,7 +11,7 @@ public class Process {
 
     private final ArrayList<Arc> arcList;
 
-    public Process(ArrayList<Arc> arcList) {
+    public GraphProcess(ArrayList<Arc> arcList) {
         this.arcList = arcList;
     }
 }

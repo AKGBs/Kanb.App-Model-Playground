@@ -2,19 +2,17 @@ package com.akgbs.tests;
 
 import com.akgbs.domain.Arc;
 import com.akgbs.domain.Node;
-import com.akgbs.domain.Process;
+import com.akgbs.domain.GraphProcess;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Given a process")
-class ProcessTest {
+class GraphProcessTest {
 
     private static ArrayList<Arc> arcs;
 
@@ -35,7 +33,7 @@ class ProcessTest {
     @Test
     @DisplayName("when created, test getters")
     void test_getters() {
-        Process p = new Process(arcs);
+        GraphProcess p = new GraphProcess(arcs);
         assertEquals(arcs, p.getArcList());
     }
 }

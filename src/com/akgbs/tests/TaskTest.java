@@ -2,9 +2,8 @@ package com.akgbs.tests;
 
 import com.akgbs.domain.Arc;
 import com.akgbs.domain.Node;
-import com.akgbs.domain.Process;
+import com.akgbs.domain.GraphProcess;
 import com.akgbs.domain.Task;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,7 @@ class TaskTest {
     private static Task parentTask;
     private static Task childTask;
     private static ArrayList<Task> children;
-    private static Process process;
+    private static GraphProcess graphProcess;
 
     @BeforeAll
     public static void settings() {
@@ -37,7 +36,7 @@ class TaskTest {
         );
         ArrayList<Arc> arcList = new ArrayList<>();
         arcList.add(arc1);
-        process = new Process(arcList);
+        graphProcess = new GraphProcess(arcList);
     }
 
     @Test
@@ -69,7 +68,14 @@ class TaskTest {
         });
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Task anotherTask = new Task(parentTask, modifiedChildren, process);
+            Task anotherTask = new Task(parentTask, modifiedChildren, graphProcess);
         });
+    }
+
+    @Test
+    @DisplayName("When created with GraphProcess, set first node")
+    void test_graph_process() {
+        Task task = new Task(graphProcess);
+        assertEquals("Node1", task.getCurrentNode().getName());
     }
 }

@@ -1,6 +1,5 @@
 package com.akgbs.domain;
 
-import javax.xml.stream.FactoryConfigurationError;
 import java.util.ArrayList;
 
 public class Task {
@@ -16,22 +15,30 @@ public class Task {
     private Task parentTask;
     private ArrayList<Task> childrenTasks;
 
-    public Process getProcess() {
-        return process;
-    }
-
-    private Process process;
+    private GraphProcess graphProcess;
 
     public Task() {
 
     }
 
-    public Task(Task parentTask, ArrayList<Task> childrenTasks, Process process) {
-        this.parentTask = parentTask;
-        setChildrenTasks(childrenTasks);
-        this.process = process;
+    public Task(GraphProcess graphProcess) {
+        setGraphProcess(graphProcess);
     }
 
+    public Task(Task parentTask, ArrayList<Task> childrenTasks, GraphProcess graphProcess) {
+        this.parentTask = parentTask;
+        setGraphProcess(graphProcess);
+        setChildrenTasks(childrenTasks);
+    }
+
+    public void setGraphProcess(GraphProcess graphProcess) {
+        this.graphProcess = graphProcess;
+        this.currentNode = graphProcess.getArcList().get(0).getFrom();
+    }
+
+    public GraphProcess getGraphProcess() {
+        return graphProcess;
+    }
 
     public Node getCurrentNode() {
         return currentNode;
@@ -60,11 +67,15 @@ public class Task {
 
     private static void checkValidity(ArrayList<Task> childrenTasks, Task parentTask) {
         Task parent = parentTask;
-        while(null != parent){
-            if(childrenTasks.contains(parent)) {
+        while (null != parent) {
+            if (childrenTasks.contains(parent)) {
                 throw new IllegalArgumentException("Recursion active");
             }
             parent = parent.parentTask;
         }
+    }
+
+    public void next() {
+
     }
 }
