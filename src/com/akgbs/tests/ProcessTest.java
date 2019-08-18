@@ -36,7 +36,6 @@ class ProcessTest {
     @DisplayName("when created, test getters")
     void test_getters() {
         Process p = new Process(arcs);
-
         assertEquals(arcs, p.getArcList());
     }
 }
