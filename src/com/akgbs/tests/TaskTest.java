@@ -1,7 +1,11 @@
 package com.akgbs.tests;
 
+import com.akgbs.domain.Arc;
 import com.akgbs.domain.Node;
+import com.akgbs.domain.Process;
 import com.akgbs.domain.Task;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,14 +18,33 @@ import java.lang.IllegalArgumentException;
 @DisplayName("Given task")
 class TaskTest {
 
+    private static Task parentTask;
+    private static Task childTask;
+    private static ArrayList<Task> children;
+    private static Process process;
+
+    @BeforeAll
+    public static void settings() {
+        parentTask = new Task();
+        childTask = new Task();
+
+        children = new ArrayList<>();
+        children.add(childTask);
+
+        Arc arc1 = new Arc(
+            new Node("Node1", "Description 1"),
+            new Node("Node2", "Description 2")
+        );
+        ArrayList<Arc> arcList = new ArrayList<>();
+        arcList.add(arc1);
+        process = new Process(arcList);
+    }
+
     @Test
     @DisplayName("When created, check attributes getter and setter")
     void test_attributes_getter_and_setter() {
-        Task task = new Task();
-        Task parentTask = new Task();
-        Task childTask = new Task();
-        ArrayList<Task> children = new ArrayList<>();
         Node aNode = new Node("Name", "Description");
+        Task task = new Task();
 
         task.setCurrentNode(aNode);
         assertEquals(aNode, task.getCurrentNode());
@@ -29,7 +52,6 @@ class TaskTest {
         task.setParentTask(parentTask);
         assertEquals(parentTask, task.getParentTask());
 
-        children.add(childTask);
         task.setChildrenTasks(children);
         assertEquals(children, task.getChildrenTasks());
     }
@@ -38,19 +60,16 @@ class TaskTest {
     @DisplayName("When added a parent as child task, throw an exception")
     void test_parent_cant_be_child() {
         Task task = new Task();
-        Task parentTask = new Task();
-        ArrayList<Task> children = new ArrayList<>();
-
         task.setParentTask(parentTask);
-        children.add(parentTask);
+        ArrayList<Task> modifiedChildren = new ArrayList<>(children);
+        modifiedChildren.add(parentTask);
+
         assertThrows(IllegalArgumentException.class, () -> {
-            task.setChildrenTasks(children);
+            task.setChildrenTasks(modifiedChildren);
         });
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Task anotherTask = new Task(parentTask, children);
+            Task anotherTask = new Task(parentTask, modifiedChildren, process);
         });
-
     }
-
 }

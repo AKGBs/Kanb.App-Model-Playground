@@ -16,13 +16,20 @@ public class Task {
     private Task parentTask;
     private ArrayList<Task> childrenTasks;
 
+    public Process getProcess() {
+        return process;
+    }
+
+    private Process process;
+
     public Task() {
 
     }
 
-    public Task(Task parentTask, ArrayList<Task> childrenTasks) {
+    public Task(Task parentTask, ArrayList<Task> childrenTasks, Process process) {
         this.parentTask = parentTask;
         setChildrenTasks(childrenTasks);
+        this.process = process;
     }
 
 
