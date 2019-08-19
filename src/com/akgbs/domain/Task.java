@@ -1,8 +1,11 @@
 package com.akgbs.domain;
 
-import java.util.ArrayList;
+import lombok.Data;
 
-public class Task {
+import java.util.ArrayList;
+import java.util.UUID;
+
+public @Data class Task {
     /*
      * A task is a pointer that moves from one node
      * to another one and it's part of the execution flow.
@@ -14,11 +17,10 @@ public class Task {
     private Node currentNode;
     private Task parentTask;
     private ArrayList<Task> childrenTasks;
-
     private GraphProcess graphProcess;
+    private final UUID id = UUID.randomUUID();
 
     public Task() {
-
     }
 
     public Task(GraphProcess graphProcess) {
@@ -34,30 +36,6 @@ public class Task {
     public void setGraphProcess(GraphProcess graphProcess) {
         this.graphProcess = graphProcess;
         this.currentNode = graphProcess.getArcList().get(0).getFrom();
-    }
-
-    public GraphProcess getGraphProcess() {
-        return graphProcess;
-    }
-
-    public Node getCurrentNode() {
-        return currentNode;
-    }
-
-    public void setCurrentNode(Node currentNode) {
-        this.currentNode = currentNode;
-    }
-
-    public Task getParentTask() {
-        return parentTask;
-    }
-
-    public void setParentTask(Task parentTask) {
-        this.parentTask = parentTask;
-    }
-
-    public ArrayList<Task> getChildrenTasks() {
-        return childrenTasks;
     }
 
     public void setChildrenTasks(ArrayList<Task> childrenTasks) {

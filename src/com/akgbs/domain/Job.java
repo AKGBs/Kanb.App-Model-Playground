@@ -1,8 +1,11 @@
 package com.akgbs.domain;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 
-public class Job {
+public @Data
+class Job {
     /*
      * Group of tasks that are logically grouped to execute a job
      */
@@ -15,18 +18,6 @@ public class Job {
         this.taskArray = taskArray;
         this.name = name;
         this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public ArrayList<Task> getTaskArray() {
-        return taskArray;
     }
 
 

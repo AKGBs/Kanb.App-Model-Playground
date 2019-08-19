@@ -17,16 +17,13 @@ import java.lang.IllegalArgumentException;
 @DisplayName("Given task")
 class TaskTest {
 
-    private static Task parentTask;
-    private static Task childTask;
+    private final static Task parentTask = new Task();
+    private final static Task childTask = new Task();
     private static ArrayList<Task> children;
     private static GraphProcess graphProcess;
 
     @BeforeAll
     public static void settings() {
-        parentTask = new Task();
-        childTask = new Task();
-
         children = new ArrayList<>();
         children.add(childTask);
 
@@ -36,6 +33,7 @@ class TaskTest {
         );
         ArrayList<Arc> arcList = new ArrayList<>();
         arcList.add(arc1);
+
         graphProcess = new GraphProcess(arcList);
     }
 
@@ -58,10 +56,12 @@ class TaskTest {
     @Test
     @DisplayName("When added a parent as child task, throw an exception")
     void test_parent_cant_be_child() {
-        Task task = new Task();
-        task.setParentTask(parentTask);
         ArrayList<Task> modifiedChildren = new ArrayList<>(children);
         modifiedChildren.add(parentTask);
+
+        Task task = new Task();
+        task.setParentTask(parentTask);
+
 
         assertThrows(IllegalArgumentException.class, () -> {
             task.setChildrenTasks(modifiedChildren);

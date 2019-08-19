@@ -1,6 +1,9 @@
 package com.akgbs.domain;
 
-public class Arc {
+import lombok.Data;
+
+public @Data
+class Arc {
     private final Node from;
     private final Node to;
 
@@ -9,11 +12,4 @@ public class Arc {
         this.to = to;
     }
 
-    public Node getFrom() {
-        return from;
-    }
-
-    public Node getTo() {
-        return to;
-    }
 }

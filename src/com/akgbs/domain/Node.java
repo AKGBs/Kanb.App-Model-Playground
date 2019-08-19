@@ -1,6 +1,9 @@
 package com.akgbs.domain;
 
-public class Node {
+import lombok.Data;
+
+public @Data
+class Node {
     private final String name;
     private final String description;
 
@@ -9,11 +12,4 @@ public class Node {
         this.description = description;
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
-    public String getName() {
-        return this.name;
-    }
 }
